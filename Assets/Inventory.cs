@@ -3,6 +3,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public int woodCount = 0;
+    public int coins = 0;
 
     public void AddWood(int amount)
     {
@@ -23,5 +24,21 @@ public class Inventory : MonoBehaviour
             Debug.Log("ei tarpeeksi puita");
             return false; 
         }
+    }
+    public void AddCoins(int amount)
+    {
+        if (amount <= 0) return;
+        coins += amount;
+        Debug.Log("Coineja saatu! Yhteensä: " + coins);
+    }
+
+    public bool SpendCoins(int amount)
+    {
+        if (coins >= amount)
+        {
+            coins -= amount;
+            return true;
+        }
+        return false;
     }
 }

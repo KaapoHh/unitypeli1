@@ -10,7 +10,7 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Spawn-paikat")]
     public Transform[] spawnPoints;
-
+   
     [Header("Aallon asetukset")]
     public float timeBetweenWaves = 10f; 
     public float spawnInterval = 2f;    
