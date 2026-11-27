@@ -195,5 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FastEnemy
   moveSpeed: 3
+  maxHealth: 20
   damageToCampfire: 1
   coinReward: 10
+  weaponDropChance: 0.1

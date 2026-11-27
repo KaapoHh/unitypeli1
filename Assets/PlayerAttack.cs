@@ -2,32 +2,14 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float attackRange = 2.5f;
+    public float attackRange = 1.5f;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-
-            if (TryAttackEnemy()) return;
             TryChopTree();
         }
-    }
-
-    bool TryAttackEnemy()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject enemy in enemies)
-        {
-            float distance = Vector2.Distance(transform.position, enemy.transform.position);
-            if (distance <= attackRange)
-            {
-                Destroy(enemy);
-                return true;
-            }
-        }
-        return false;
     }
 
     void TryChopTree()
@@ -41,7 +23,6 @@ public class PlayerAttack : MonoBehaviour
             {
                 SpriteRenderer sr = tree.GetComponent<SpriteRenderer>();
                 if (sr != null && !sr.enabled) continue;
-
 
                 Inventory playerInventory = GetComponent<Inventory>();
                 if (playerInventory != null)
@@ -59,7 +40,7 @@ public class PlayerAttack : MonoBehaviour
                     Destroy(tree);
                 }
 
-                break; //
+                break;
             }
         }
     }

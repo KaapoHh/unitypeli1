@@ -1,26 +1,16 @@
 using UnityEngine;
-using UnityEngine.Events;
-using TMPro;
+using UnityEngine.UI;
 
 public class CampfireHealth : MonoBehaviour
 {
-    [Header("Nuotion elämäpisteet")]
     public int maxHealth = 100;
     public int currentHealth;
-
-    [Header("Valinnainen UI-näyttö")]
-    public TMP_Text healthText;
-
-    [Header("Tapahtumat kun HP muuttuu tai loppuu")]
-    public UnityEvent onHealthChanged;
-    public UnityEvent onCampfireExtinguished;
-
-    private bool isExtinguished = false;
+    public Text healthText;
 
     void Awake()
     {
         currentHealth = maxHealth;
-        UpdateUI();
+        UpdateHealthUI();
     }
 
     public bool IsFullHealth()
@@ -28,39 +18,25 @@ public class CampfireHealth : MonoBehaviour
         return currentHealth >= maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int amount)
     {
-        if (isExtinguished || damage <= 0) return;
-
-        currentHealth = Mathf.Max(0, currentHealth - damage);
-        Debug.Log("Nuotion HP: " + currentHealth + "/" + maxHealth);
-
-        UpdateUI();
-        onHealthChanged?.Invoke();
-
-        if (currentHealth <= 0 && !isExtinguished)
-        {
-            isExtinguished = true;
-            Debug.Log("Nuotio sammui!");
-            onCampfireExtinguished?.Invoke();
-        }
+        int dmg = Mathf.Max(0, amount);
+        currentHealth = Mathf.Max(0, currentHealth - dmg);
+        UpdateHealthUI();
     }
 
     public void Heal(int amount)
     {
-        if (isExtinguished || amount <= 0) return;
-
-        currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
-        Debug.Log("Nuotiota parannettiin! HP nyt: " + currentHealth + "/" + maxHealth);
-        UpdateUI();
-        onHealthChanged?.Invoke();
+        int healAmount = Mathf.Max(0, amount);
+        currentHealth = Mathf.Min(maxHealth, currentHealth + healAmount);
+        UpdateHealthUI();
     }
 
-    void UpdateUI()
+    public void UpdateHealthUI()
     {
         if (healthText != null)
         {
-            healthText.text = "Nuotio: " + currentHealth + " / " + maxHealth;
+            healthText.text = $"HP: {currentHealth} / {maxHealth}";
         }
     }
 }
